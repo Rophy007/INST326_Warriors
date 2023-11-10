@@ -33,4 +33,4 @@ if __name__ == "__main__":
             print("Login failed.")
 
     except User:
-        print(f"Error ") 
+        print(f"Error") 
