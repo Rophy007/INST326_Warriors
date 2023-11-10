@@ -32,5 +32,5 @@ if __name__ == "__main__":
         else:
             print("Login failed.")
 
-    except User as e:
+    except User:
         print(f"Error")
