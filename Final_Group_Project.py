@@ -35,6 +35,24 @@ if __name__ == "__main__":
     except User:
         print(f"Error") 
 
+class UserAccount:
+   
+    def __init__(self):
+        self.transaction_history = []  """ Initialize transaction history """
+
+    def add_transaction(self, transaction_type, amount, timestamp, source_account=None):
+        transaction = {
+            "type": transaction_type,
+            "amount": amount,
+            "timestamp": timestamp,
+            "source_account": source_account
+        }
+        self.transaction_history.append(transaction)
+
+user_account = UserAccount() """ creating instance """
+user_account.add_transaction("deposit", 100, "2023-11-15", source_account=None) """ adding a transaction """
+
+
 class OnlineBankingSystem:
     def __init__(self):
         self.user_account= {}
