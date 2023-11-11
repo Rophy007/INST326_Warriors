@@ -82,3 +82,22 @@ class OnlineBankingSystem:
         print(f"Account Type: {account_type}")
 
         return bank_account_number
+
+
+class BankAccount:
+    def __init__(self, balance=0):
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"The deposit is ${amount}, so the new balance is: ${self.balance})
+
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            print(f"The withdrawal amount is ${amount}. The new balance is ${self.balance}.")
+        else:
+            print(f"There is not enough money in your bank account.")
+   
+   def get_balance(self):
+       return self.balance
