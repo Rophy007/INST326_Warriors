@@ -35,10 +35,13 @@ if __name__ == "__main__":
     except User:
         print(f"Error") 
 
+
+import argparse
+from datetime import datetime
+
 class UserAccount:
-   
     def __init__(self):
-        self.transaction_history = []  """ Initialize transaction history """
+        self.transaction_history = []  # Initialize transaction history
 
     def add_transaction(self, transaction_type, amount, timestamp, source_account=None):
         transaction = {
@@ -49,8 +52,29 @@ class UserAccount:
         }
         self.transaction_history.append(transaction)
 
-user_account = UserAccount() """ creating instance """
-user_account.add_transaction("deposit", 100, "2023-11-15", source_account=None) """ adding a transaction """
+def main():
+    parser = argparse.ArgumentParser(description="User Account Transactions")
+    parser.add_argument("--type", choices=["deposit", "withdrawal"], required=True, help="Transaction type: 'deposit' or 'withdrawal'")
+    parser.add_argument("--amount", type=float, required=True, help="Transaction amount")
+    parser.add_argument("--timestamp", default=datetime.now().strftime("%m-%d-%Y %H:%M:%S "), help="Transaction timestamp")
+    parser.add_argument("--source-account", help="Source account for the transaction")
+
+    args = parser.parse_args()
+
+    user_account = UserAccount()
+    user_account.add_transaction(
+        transaction_type=args.type,
+        amount=args.amount,
+        timestamp=args.timestamp,
+        source_account=args.source_account
+    )
+    print("Transaction added successfully!")
+    print("Transaction History:")
+    for transaction in user_account.transaction_history:
+        print(transaction)
+   
+if __name__ == '__main__':
+    main()
 
 
 class OnlineBankingSystem:
