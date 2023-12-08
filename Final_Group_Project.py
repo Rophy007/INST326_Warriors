@@ -123,7 +123,7 @@ class CheckBalance:
         else:
             print(f"There is not enough money in your bank account.")
             
-   def get_balance(self):
+    def get_balance(self):
        return self.balance if self.balance > 0 else -self.balance
 
        
