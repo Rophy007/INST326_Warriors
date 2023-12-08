@@ -114,7 +114,7 @@ class CheckBalance:
 
     def deposit(self, amount):
         self.balance += amount
-        print(f"The deposit is ${amount}, so the new balance is: ${self.balance})
+        print(f"The deposit is ${amount}, so the new balance is: ${self.balance}")
 
     def withdraw(self, amount):
         if self.balance >= amount:
