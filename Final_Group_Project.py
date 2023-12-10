@@ -29,15 +29,45 @@ class User(Exception):
         return False
 
     def hash_password(self, password):
+        """
+        Hashes the password provided
+
+        Parameters:
+        password (str): The password given
+
+        Returns:
+        str: The hashed password 
+        
+        """
         password_bytes = password.encode('utf-8')
         hash_obj = hashlib.sha256(password_bytes)
         return hash_obj.hexdigest()
 
     def verify_password(self, input_password, stored_hash):
+        """
+        Verifies if the given password matches the stored and hashed password
+
+        Parameters:
+        input_password(str): The password entered by the user
+        stored_hash (str): The hashed and stored password
+
+        Returns: 
+        bool: True if a match, False otherwise
+        
+        """
         hashed_input = self.hash_password(input_password)
         return hashed_input == stored_hash
 
     def login(self):
+        """
+        The Login screen. Prompts the user to enter their credentials.
+        Displays account options after logging in.
+
+        Raises:
+        UserError: If the entered credential are invalid 
+
+        
+        """
         print("Log in to your account:")
         username = input("Enter your username: ")
         password = input("Enter your password: ")
