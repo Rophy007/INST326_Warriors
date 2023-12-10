@@ -1,43 +1,44 @@
 import json
+import argparse
+from datetime import datetime
 
 class User(Exception):
     pass
 
-def login(username, password):
-    try:
-        # Load user data from a JSON file
-        with open('user_data.json', 'r') as file:
-            users = json.load(file)
+    def authenticate_user(self, username, password):
+        with open(self.user_data_file, 'r') as file:
+            reader = csv.DictReader(file)
 
-        if username not in users:
-            raise User("Invalid username")
+            for row in reader:
+                if row['username'] == username and self.verify_password(password, row['hashed_password']):
+                    return True
 
-        if users[username]['password'] == password:
-            return True 
-        else:
-            raise User("Invalid password")
+        return False
 
-    except FileNotFoundError:
-        raise User("User data not found. Please register an account.")
+    def hash_password(self, password):
+        password_bytes = password.encode('utf-8')
+        hash_obj = hashlib.sha256(password_bytes)
+        return hash_obj.hexdigest()
 
-if __name__ == "__main__":
-    try:
-        # Get user inputs
-        username_input = input("Enter your username: ")
-        password_input = input("Enter your password: ")
+    def verify_password(self, input_password, stored_hash):
+        hashed_input = self.hash_password(input_password)
+        return hashed_input == stored_hash
 
-        # Attempt login
-        if login(username_input, password_input):
+    def login(self):
+        print("Log in to your account:")
+        username = input("Enter your username: ")
+        password = input("Enter your password: ")
+
+        if self.authenticate_user(username, password):
             print("Login successful!")
+            self.logged_in_user = username
+            self.show_account_options()
         else:
-            print("Login failed.")
-
-    except User:
-        print(f"Error") 
+            raise UserError("Invalid username or password")
 
 
-import argparse
-from datetime import datetime
+
+
 
 class UserAccount:
     def __init__(self):
