@@ -126,4 +126,23 @@ class CheckBalance:
     def get_balance(self):
        return self.balance if self.balance > 0 else -self.balance
 
-       
+import re
+
+def is_valid_password(password, min_length, max_length):
+    # regex that checks length of password against minimum and maximum lengths required
+    pattern = f"^.{{{min_length},{max_length}}}$"
+    return re.match(pattern,password)
+
+# example usage/password requirements it is matching against
+user_password = input("Enter your password:            ")
+min_length = 8
+max_length = 20
+
+# conditional statement checking validity of password 
+if is_valid_password(password, min_length, max_length):
+    print("Password is invalid.")
+else:
+    print("Password is not valid.")
+
+
+
