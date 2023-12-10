@@ -172,21 +172,17 @@ class CheckBalance:
 
 import re
 
-def is_valid_password(password, min_length, max_length):
-    # regex that checks length of password against minimum and maximum lengths required
-    pattern = f"^.{{{min_length},{max_length}}}$"
-    return re.match(pattern,password)
+def validate_password(password):
+    # Checks length and character requirements (One uppercase letter, One lowercase letter, One digit is required) 
+    return len(password) >= 7 and re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$', password)
 
-# example usage/password requirements it is matching against
-user_password = input("Enter your password:            ")
-min_length = 8
-max_length = 20
 
-# conditional statement checking validity of password 
-if is_valid_password(password, min_length, max_length):
-    print("Password is invalid.")
+password = input("Enter your password: ")
+
+# password validation check using conditional statement 
+if validate_password(password):
+    print("Password is valid.")
 else:
     print("Password is not valid.")
-
 
 
