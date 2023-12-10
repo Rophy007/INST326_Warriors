@@ -87,14 +87,21 @@ class UserAccount:
     def __init__(self):
         self.transaction_history = []  # Initialize transaction history
 
-    def add_transaction(self, transaction_type, amount, timestamp, source_account=None):
-        transaction = {
-            "type": transaction_type,
-            "amount": amount,
-            "timestamp": timestamp,
-            "source_account": source_account
-        }
-        self.transaction_history.append(transaction)
+    def add_transaction(self, transaction_type, amount):
+        '''
+        This functions adds transactions made by the user into their account
+        organized by the date stamp. 
+
+        Parameters: transaction_type
+        '''
+        timestamp = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
+        new_transaction = pd.DataFrame({
+            "Type": [transaction_type],
+            "Amount": [amount],
+            "Timestamp": [timestamp]
+        })
+
+        self.transaction_history = pd.concat([self.transaction_history, new_transaction], ignore_index=True, sort=False)
 
 def main():
     parser = argparse.ArgumentParser(description="User Account Transactions")
