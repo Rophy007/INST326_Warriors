@@ -6,6 +6,19 @@ class User(Exception):
     pass
 
     def authenticate_user(self, username, password):
+        """
+        Authenticates the user by comparing provided info with the stored info
+
+        Parameters:
+        
+        username (str): The username entered by the user.
+        password (str): The password entered by the user.
+
+        Returns:
+
+        bool: True if authentication is good, false otherwise
+        
+        """
         with open(self.user_data_file, 'r') as file:
             reader = csv.DictReader(file)
 
