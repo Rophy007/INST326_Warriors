@@ -193,3 +193,11 @@ else:
     print("Password is not valid.")
 
 
+def validate_password(self, password):
+        # Use regex to validate password
+        if re.match(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$', password):
+            return True
+        else:
+            return False
+
+
