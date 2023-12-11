@@ -355,7 +355,47 @@ class UserAccount:
 
 
 
+def check_balance(self):
+    """
+    Claim: Mohamed
+    Techniques: Sorted lambda, pyplot seaborn
+        
+        
+    Display the current balance, transaction history, and visualize the transaction data.
 
+    This method prints the current account balance, a table showing transaction history
+    with details such as transaction type, amount, and timestamp, and a bar chart
+    visualizing the transaction history.
+
+    The transaction history is sorted by the amount in ascending order before display.
+
+    Note: This method relies on the presence of a Pandas DataFrame named 'transaction_history'
+    in the object, containing columns 'Type', 'Amount', and 'Timestamp'.
+
+    Returns:
+    None
+
+    Example usage:
+    
+    """
+        
+        print(f"Current Balance: ${self.balance}")
+        print("Transaction History:")
+
+        sorted_history = sorted(self.transaction_history.to_dict(orient='records'), key=lambda x: x['Amount'])
+
+        print(pd.DataFrame(sorted_history)[['Type', 'Amount', 'Timestamp']])
+
+        if not self.transaction_history.empty:
+            transaction_types = self.transaction_history['Type'].tolist()
+
+            # 6. visualizing data table
+            plt.figure(figsize=(10, 6))
+            sns.barplot(data=self.transaction_history, x='Type', y='Amount', hue='Type', estimator=sum)
+            plt.title('Transaction History')
+            plt.xlabel('Transaction Type')
+            plt.ylabel('Amount')
+            plt.show()
 
 
 
