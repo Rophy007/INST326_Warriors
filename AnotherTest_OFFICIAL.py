@@ -223,7 +223,7 @@ class UserAccount:
         Checks balance based on deposit amount.
         
         Args:
-            amount (int): Amount of money deposited in account.
+            amount (float): Amount of money deposited in account.
         
         Raises:
             TransactionError: If deposit amount is less than $0. 
@@ -253,7 +253,7 @@ class UserAccount:
         Checks balance based on withdrawal amount.
         
         Args:
-            amount (int): Amount of money withdrawn from account.
+            amount (float): Amount of money withdrawn from account.
             
         Raises: 
             TransactionError: If withdrawal amount is less than $0.
