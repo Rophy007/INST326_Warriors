@@ -69,12 +69,12 @@ class UserManager:
 
         Parameters:
         
-        username (str): The username entered by the user.
-        password (str): The password entered by the user.
+            username (str): The username entered by the user.
+            password (str): The password entered by the user.
 
         Returns:
 
-        bool: True if authentication is good, false otherwise
+            bool: True if authentication is good, false otherwise
         
         """
         with open(self.user_data_file, 'r') as file:
@@ -91,10 +91,10 @@ class UserManager:
         Hashes the password provided
 
         Parameters:
-        password (str): The password given
+            password (str): The password given
 
         Returns:
-        str: The hashed password 
+            str: The hashed password 
         
         """
         password_bytes = password.encode('utf-8')
@@ -106,11 +106,11 @@ class UserManager:
         Verifies if the given password matches the stored and hashed password
 
         Parameters:
-        input_password(str): The password entered by the user
-        stored_hash (str): The hashed and stored password
+            input_password(str): The password entered by the user
+            stored_hash (str): The hashed and stored password
 
         Returns: 
-        bool: True if a match, False otherwise
+            bool: True if a match, False otherwise
         
         """
         hashed_input = self.hash_password(input_password)
@@ -122,7 +122,7 @@ class UserManager:
         Displays account options after logging in.
 
         Raises:
-        UserError: If the entered credential are invalid 
+            UserError: If the entered credential are invalid 
 
         
         """
