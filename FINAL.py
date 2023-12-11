@@ -1,20 +1,130 @@
+import json
+import csv
+import hashlib
+import random
+from datetime import datetime
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import re
 
 
+class UserError(Exception):
+    pass
 
+class UserRegistrationError(Exception):
+    pass
 
+class UserLoginError(Exception):
+    pass
 
+class TransactionError(Exception):
+    pass
 
+class UserManager:
+    """
+    Manages user accounts within the system.
+    """
 
+    def __init__(self):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        
+        Initializes the UserManager object.
 
+        Attributes:
+        user_data_file (str): The file path for storing user data.
+        logged_in_user (str): Username of the currently logged-in user.
+        user_accounts (dict): Dictionary containing user accounts and their details.
+        """
+        self.user_data_file = 'user_data.csv'
+        self.logged_in_user = None
+        self.user_accounts = self.load_user_data()
 
+    def create_account(self):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        Creates a new user account.
 
+        Prompts the user to enter details and creates a new account based on the input.
+        """
+        print("Create a new account:")
+        user_info = {
+            "first_name": input("Enter your first name: "),
+            "last_name": input("Enter your last name: "),
+            "dob": input("Enter your date of birth (YYYY-MM-DD): "),
+            "username": input("Choose a username: "),
+            "hashed_password": self.hash_password(input("Enter a password: ")),
+            "balance": 0
+        }
 
+        self.user_accounts[user_info['username']] = {"balance": 0}
+        self.write_to_csv(user_info)
+        print("Account created successfully!")
 
+    def load_user_data(self):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        
+        Loads user data from the file.
 
+        Reads the user data from the CSV file and returns a dictionary of user accounts.
+        """
+        user_accounts = {}
+        with open(self.user_data_file, 'r') as file:
+            reader = csv.DictReader(file, fieldnames=["first_name", "last_name", "dob", "username", "hashed_password", "balance"])
+            next(reader)  # Skip the header row
 
+            for row in reader:
+                username = row['username']
+                balance = float(row.get('balance', 0.0))
+                user_accounts[username] = {"balance": balance}
 
+        return user_accounts
 
+    def write_to_csv(self, user_info):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        Writes user information to the CSV file.
 
+        Appends user information to the CSV file for storage.
+
+        Parameters:
+        user_info (dict): Dictionary containing user information.
+        """
+        with open(self.user_data_file, 'a', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=user_info.keys())
+            writer.writerow(user_info)
+
+    def authenticate_user(self, username, password):
+        """
+        Claim: Abrar
+        Technique: With statement. Conditional expression
+        
+        Authenticates the user by comparing provided info with the stored info
+
+        Parameters:
+        
+            username (str): The username entered by the user.
+            password (str): The password entered by the user.
+
+        Returns:
+
+            bool: True if authentication is good, false otherwise
+        
+        """
+        with open(self.user_data_file, 'r') as file:
+            reader = csv.DictReader(file)
+
+            for row in reader:
+                if row['username'] == username and self.verify_password(password, row['hashed_password']):
+                    return True
+
+        return False
 
 
   def authenticate_user(self, username, password):
