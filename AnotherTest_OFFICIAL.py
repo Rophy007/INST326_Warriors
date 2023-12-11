@@ -260,6 +260,19 @@ class UserManager:
 
 class UserAccount:
     def __init__(self, username, firstname, lastname, email, account_type='Savings', initial_balance=0):
+            """
+        Claim: Tyrese
+        Technique: Optional Paramters
+        Initializes a UserAccount object.
+
+        Parameters:
+        username (str): The username for the user account.
+        firstname (str): The first name of the user.
+        lastname (str): The last name of the user.
+        email (str): The email address of the user.
+        account_type (str, optional): Type of account ('Savings' or 'Checking'). Defaults to 'Savings'.
+        initial_balance (float, optional): Initial balance for the account. Defaults to 0.
+        """
         self.username = username
         self.account_number = self.generate_account_number()
         self.first_name = firstname
@@ -271,6 +284,12 @@ class UserAccount:
         self.transaction_history = pd.DataFrame(columns=['Type', 'Amount', 'Timestamp'])
 
     def generate_account_number(self):
+            """
+        Generates a random account number for the user.
+
+        Returns:
+        str: A randomly generated account number.
+        """
         return str(random.randint(10000000, 99999999))
 
     def add_transaction(self, transaction_type, amount):
