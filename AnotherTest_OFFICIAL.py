@@ -219,6 +219,26 @@ class UserAccount:
         self.transaction_history = pd.concat([self.transaction_history, new_transaction], ignore_index=True, sort=False)
 
     def deposit(self, amount):
+        """
+        Checks balance based on deposit amount.
+        
+        Args:
+            amount (int): Amount of money deposited in account.
+        
+        Raises:
+            TransactionError: If deposit amount is less than $0. 
+            
+        Side effects:
+            Account's balance (self.balance) is increased based on deposit amount.
+            A new transaction of type 'Deposit' with the specified amount is added to the transaction history. 
+            A message is printed to the console, which indicates the success of the deposit, and includes deposited amount and new balance. 
+            If the updated balance is greater than $1000, an additional message is printed, which says "Oh, you got money!"          
+            
+                
+        Claim: Reem
+        Technique: f-strings containing expressions
+            
+        """
         if amount <= 0:
             raise TransactionError("Invalid deposit amount. Amount must be greater than 0.")
         self.balance += amount
@@ -229,6 +249,24 @@ class UserAccount:
             print("Oh, you got money!")
 
     def withdraw(self, amount):
+         """
+        Checks balance based on withdrawal amount.
+        
+        Args:
+            amount (int): Amount of money withdrawn from account.
+            
+        Raises: 
+            TransactionError: If withdrawal amount is less than $0.
+            
+        Side effects:
+            If account balance is greater than or equal to the withdrawal amount, the system will proceed with the withdrawal. 
+            If not, then the system will print a message stating that there are insufficient funds. 
+            If there are sufficient funds, the withdrawal amount is deducted from the account's balance (self.balance).
+            A new transaction type "Withdrawal" with the specific amount is added to the transaction history. 
+            If the withdrawal is successful, a message is printed to the console indicating success of the withdrawal, including the amount, and new account balance.
+        
+        Claim: Reem
+        """
         if amount <= 0:
             raise TransactionError("Invalid withdrawal amount. Amount must be greater than 0.")
         if self.balance >= amount:
