@@ -7,6 +7,9 @@ class User(Exception):
 
     def authenticate_user(self, username, password):
         """
+        Claim: Abrar
+        Technique: With statement. Conditional expression
+        
         Authenticates the user by comparing provided info with the stored info
 
         Parameters:
