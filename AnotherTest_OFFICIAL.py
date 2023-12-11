@@ -60,7 +60,7 @@ class UserManager:
             writer = csv.DictWriter(file, fieldnames=user_info.keys())
             writer.writerow(user_info)
 
-     def authenticate_user(self, username, password):
+    def authenticate_user(self, username, password):
         """
         Claim: Abrar
         Technique: With statement. Conditional expression
