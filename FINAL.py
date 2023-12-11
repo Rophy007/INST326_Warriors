@@ -374,8 +374,6 @@ def check_balance(self):
 
     Returns:
     None
-
-    Example usage:
     
     """
         
@@ -404,7 +402,47 @@ def check_balance(self):
 
 
 
+def run_transaction_module(self):
+        """
+        Initiates a transaction module for the user.
 
+        This method provides a menu-driven interface for users to perform banking transactions
+        such as deposit, withdrawal, checking balance, and exiting the transaction module.
+
+        raises TransactionError: Raised when an error occurs during a transaction.
+
+        return: None
+        """
+        try:
+            while True:
+                print("\nChoose a transaction:")
+                print("1. Deposit")
+                print("2. Withdraw")
+                print("3. Check Balance")
+                print("4. Exit")
+
+                choice = input("Enter your choice (1/2/3/4): ")
+
+                if choice == '1':
+                    amount = float(input("Enter deposit amount: "))
+                    print(f"Initiating deposit of ${amount} for user {self.username}")
+                    self.online_banking_system.user_accounts[self.username].deposit(amount)
+                elif choice == '2':
+                    amount = float(input("Enter withdrawal amount: "))
+                    print(f"Initiating withdrawal of ${amount} for user {self.username}")
+                    self.online_banking_system.user_accounts[self.username].withdraw(amount)
+                elif choice == '3':
+                    print(f"Checking balance for user {self.username}")
+                    self.online_banking_system.user_accounts[self.username].check_balance()
+                elif choice == '4':
+                    print("Exiting transaction module. Goodbye!")
+                    self.online_banking_system.save_user_data()
+                    break
+                else:
+                    print("Invalid choice. Please enter 1, 2, 3, or 4.")
+
+        except TransactionError as e:
+            print(f"Transaction Error: {e}")
 
 
 
