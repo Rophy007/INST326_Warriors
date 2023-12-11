@@ -182,19 +182,6 @@ class CheckBalance:
 
 import re
 
-def validate_password(password):
-    # Checks length and character requirements (One uppercase letter, One lowercase letter, One digit is required) 
-    return len(password) >= 7 and re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$", password)
-
-
-password = input("Enter your password: ")
-
-# password validation check using conditional statement 
-if validate_password(password):
-    print("Password is valid.")
-else:
-    print("Password is not valid.")
-
 
 def validate_password(self, password):
         # Use regex to validate password
