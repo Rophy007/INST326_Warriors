@@ -451,6 +451,15 @@ Returns: (str)
                f"email={self.email}, account_type={self.account_type}, balance={self.balance}) {balance_message}"
     
     def create_bank_account(self):
+
+"""
+Claim: Rophy 
+This function creates a new user account, provides feedback to the user. 
+
+Parameters: self 
+
+Returns: THe created UserAccount class  
+"""
         firstname = input("Enter your first name: ")
         lastname = input("Enter your last name: ")
         email = input("Enter your email: ")
