@@ -238,6 +238,25 @@ class UserManager:
 
 
 
+    def check_balance(self):
+        balance = self.user_accounts[self.logged_in_user]["balance"]
+        print(f"Current Balance: {balance}")
+
+    def update_csv(self):
+        with open(self.user_data_file, 'r') as file:
+            reader = csv.DictReader(file)
+
+            rows = []
+            for row in reader:
+                username = row['username']
+                if username in self.user_accounts:
+                    row['balance'] = self.user_accounts[username]['balance']
+                rows.append(row)
+
+        with open(self.user_data_file, 'w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=["first_name", "last_name", "dob", "username", "hashed_password", "balance"])
+            writer.writeheader()
+            writer.writerows(rows)
 
 
 
