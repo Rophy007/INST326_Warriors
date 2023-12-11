@@ -292,8 +292,22 @@ class UserManager:
 
 
 
+    def add_transaction(self, transaction_type, amount):
+         '''
+        Claim: Rophy 
+        
+        This functions adds transactions made by the user into their account
+        organized by the date stamp. 
 
-
+        Parameters: transaction_type
+        '''
+        
+        timestamp = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
+        new_transaction = pd.DataFrame({
+            "Type": [transaction_type],
+            "Amount": [amount],
+            "Timestamp": [timestamp]
+        })
 
 
 
