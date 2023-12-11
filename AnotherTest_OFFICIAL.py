@@ -22,12 +22,34 @@ class TransactionError(Exception):
     pass
 
 class UserManager:
+    """
+    Manages user accounts within the system.
+    """
+
     def __init__(self):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        
+        Initializes the UserManager object.
+
+        Attributes:
+        user_data_file (str): The file path for storing user data.
+        logged_in_user (str): Username of the currently logged-in user.
+        user_accounts (dict): Dictionary containing user accounts and their details.
+        """
         self.user_data_file = 'user_data.csv'
         self.logged_in_user = None
         self.user_accounts = self.load_user_data()
 
     def create_account(self):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        Creates a new user account.
+
+        Prompts the user to enter details and creates a new account based on the input.
+        """
         print("Create a new account:")
         user_info = {
             "first_name": input("Enter your first name: "),
@@ -43,6 +65,14 @@ class UserManager:
         print("Account created successfully!")
 
     def load_user_data(self):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        
+        Loads user data from the file.
+
+        Reads the user data from the CSV file and returns a dictionary of user accounts.
+        """
         user_accounts = {}
         with open(self.user_data_file, 'r') as file:
             reader = csv.DictReader(file, fieldnames=["first_name", "last_name", "dob", "username", "hashed_password", "balance"])
@@ -56,6 +86,16 @@ class UserManager:
         return user_accounts
 
     def write_to_csv(self, user_info):
+        """
+        Claim: Tyrese
+        Technique: N/A
+        Writes user information to the CSV file.
+
+        Appends user information to the CSV file for storage.
+
+        Parameters:
+        user_info (dict): Dictionary containing user information.
+        """
         with open(self.user_data_file, 'a', newline='') as file:
             writer = csv.DictWriter(file, fieldnames=user_info.keys())
             writer.writerow(user_info)
