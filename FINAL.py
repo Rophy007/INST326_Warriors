@@ -247,7 +247,8 @@ class UserManager:
 
     def update_csv(self):
         """
-
+        This function updates the csv file of user data 
+        """
         
         with open(self.user_data_file, 'r') as file:
             reader = csv.DictReader(file)
