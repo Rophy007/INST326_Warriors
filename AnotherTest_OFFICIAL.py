@@ -88,6 +88,7 @@ class UserManager:
 
     def hash_password(self, password):
         """
+        Claim: Abrar
         Hashes the password provided
 
         Parameters:
