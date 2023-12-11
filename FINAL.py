@@ -206,3 +206,408 @@ class UserManager:
             self.show_account_options()
         else:
             raise UserError("Invalid username or password")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def __str__(self):
+"""
+Claim: Rophy 
+This provides a string representation of an object. It checks if the balance attribute of t he UserACcount if greaters than 1000.
+If true it will print out a special message
+
+Parameters: (self)
+
+Returns: (str)
+"""     
+        balance_message = "Oh, you got money!" if self.balance > 1000 else ""
+        return f"UserAccount(username={self.username}, account_number={self.account_number}, " \
+               f"first_name={self.first_name}, last_name={self.last_name}, " \
+               f"email={self.email}, account_type={self.account_type}, balance={self.balance}) {balance_message}"
+    
+    def create_bank_account(self):
+
+"""
+Claim: Rophy 
+This function creates a new user account, provides feedback to the user. 
+
+Parameters: self 
+
+Returns: THe created UserAccount class  
+"""
+        firstname = input("Enter your first name: ")
+        lastname = input("Enter your last name: ")
+        email = input("Enter your email: ")
+
+        print("\nChoose the type of account:")
+        print("1. Savings")
+        print("2. Checking")
+
+        account_type_choice = input("Enter your choice (1/2): ")
+
+        if account_type_choice == '1':
+            account_type = 'Savings'
+        elif account_type_choice == '2':
+            account_type = 'Checking'
+        else:
+            print("Invalid choice. Defaulting to Savings.")
+            account_type = 'Savings'
+
+        username = input("Enter your username: ")
+        password = input("Enter your password: ")
+
+        if self.validate_password(password):
+            if username not in self.user_accounts:
+                user_account = UserAccount(username, firstname, lastname, email, account_type)
+                self.user_accounts[username] = user_account
+                print("\nCongratulations on creating your new online banking account!")
+                print(f"Account Number: {user_account.account_number}")
+                print(f"Name: {user_account.first_name} {user_account.last_name}")
+                print(f"Email: {user_account.email}")
+                print(f"Initial Balance: ${user_account.balance}")
+                print(f"Account Type: {user_account.account_type}")
+                return user_account
+            else:
+                print("User already exists. Please log in.")
+        else:
+            print("Invalid password. Password must have a minimum length of 7 characters.")
+
+if __name__ == "__main__":
+
+"""
+Claim: Rophy 
+This is a basic level interface for the users of the online banking system. 
+It creates accounts, log in, and perfrom transactions 
+
+Parameters: int or float
+
+Return: (str)
+
+"""
+    online_banking_system = OnlineBankingSystem()
+    online_banking_system.load_user_data()
+
+    print("Welcome to the Online Banking System!")
+
+    while True:
+        print("\nChoose an option:")
+        print("1. Create Account")
+        print("2. Log In")
+        print("3. Exit")
+
+        option = input("Enter your choice (1/2/3): ")
+
+        if option == '1':
+            online_banking_system.create_bank_account()
+        elif option == '2':
+            username = input("Enter your username: ")
+            if username in online_banking_system.user_accounts:
+                password = input("Enter your password: ")
+                if online_banking_system.user_accounts[username].validate_password(password):
+                    online_banking_system.save_user_data()
+                    online_banking_system.load_user_data()
+                    transaction_module = TransactionModule(online_banking_system, username)
+                    transaction_module.run_transaction_module()
+                    online_banking_system.save_user_data()
+                else:
+                    print("Invalid password. Please try again.")
+            else:
+                print("User does not exist. Please create an account.")
+        elif option == '3':
+            print("Exiting Online Banking System. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
