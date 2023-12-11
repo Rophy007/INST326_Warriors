@@ -233,6 +233,15 @@ class UserAccount:
         return str(random.randint(10000000, 99999999))
 
     def add_transaction(self, transaction_type, amount):
+         '''
+        Claim: Rophy 
+        
+        This functions adds transactions made by the user into their account
+        organized by the date stamp. 
+
+        Parameters: transaction_type
+        '''
+        
         timestamp = datetime.now().strftime("%m-%d-%Y %H:%M:%S")
         new_transaction = pd.DataFrame({
             "Type": [transaction_type],
@@ -418,6 +427,15 @@ class OnlineBankingSystem:
         return len(password) >= 7
     
     def __str__(self):
+"""
+Claim: Rophy 
+This provides a string representation of an object. It checks if the balance attribute of t he UserACcount if greaters than 1000.
+If true it will print out a special message
+
+Parameters: (self)
+
+Returns: (str)
+"""     
         balance_message = "Oh, you got money!" if self.balance > 1000 else ""
         return f"UserAccount(username={self.username}, account_number={self.account_number}, " \
                f"first_name={self.first_name}, last_name={self.last_name}, " \
@@ -462,6 +480,17 @@ class OnlineBankingSystem:
             print("Invalid password. Password must have a minimum length of 7 characters.")
 
 if __name__ == "__main__":
+
+"""
+Claim: Rophy 
+This is a basic level interface for the users of the online banking system. 
+It creates accounts, log in, and perfrom transactions 
+
+Parameters: int or float
+
+Return: (str)
+
+"""
     online_banking_system = OnlineBankingSystem()
     online_banking_system.load_user_data()
 
