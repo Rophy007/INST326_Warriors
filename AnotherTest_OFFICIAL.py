@@ -163,10 +163,34 @@ class UserManager:
                 print("Invalid choice. Please enter 1, 2, 3, or 4.")
 
     def deposit(self, amount):
+        """Deposits a specified amount into user's account. 
+        
+        Args: 
+            amount (float): the amount to be deposited. 
+            
+        Side effects:
+            Increases the balance in the user's account with the specific amount.
+            Updates user's account information to CSV file.    
+        
+        Claim: Reem         
+    
+        """
         self.user_accounts[self.logged_in_user]["balance"] += amount
         self.update_csv()
 
     def withdraw(self, amount):
+          """Withdraws a specified amount from user's account.
+        
+        Args:
+            amount (float): amount to be withdrawn 
+            
+        Side effects:
+            Decreases the balance in the user's account by the specific amount.
+            Updates user's account information in the CSV file.
+            If the user has insufficient funds, a message is printed to the console. 
+        
+        Claim: Reem
+        """
         if self.user_accounts[self.logged_in_user]["balance"] >= amount:
             self.user_accounts[self.logged_in_user]["balance"] -= amount
             self.update_csv()
