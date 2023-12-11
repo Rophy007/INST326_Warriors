@@ -433,6 +433,14 @@ class OnlineBankingSystem:
         self.user_accounts = {}
 
     def load_user_data(self):
+            """
+        Claim: Tyrese
+        Technique: json.load
+        
+        Loads user data from a JSON file.
+
+        Attempts to load user data from 'user_data.json' and populates user_accounts.
+        """
         try:
             with open('user_data.json', 'r') as file: #8. using with statement
                 user_data = json.load(file) #9. using json.load
