@@ -296,6 +296,20 @@ class UserAccount:
             plt.show()
 
 def validate_password(self, password):
+    """Validates a password based on length and composition. 
+        Password must be at least 7 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.
+        
+        Args:
+            password (str): the user's password, which needs to be validated.
+            
+        Returns:
+            boolean: True if password is valid, False if invalid. 
+            
+        Claim: Reem
+        
+        Technique: Regular Expression          
+    
+        """
         # Use regex to validate password
         if re.match(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$', password):
             return True
