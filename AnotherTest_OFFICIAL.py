@@ -423,6 +423,15 @@ class OnlineBankingSystem:
             json.dump(user_data, file, indent=2)
 
     def validate_password(self, password):
+        """Validates length of password.
+        Args:
+            password (str): user's password, which needs to be validated.
+
+        Returns:
+            bool: True if password length is greater than or equal to 7, False otherwise. 
+        
+        Claim: Reem
+        """
         # print(f"Validating password for user with length {len(password)}")
         return len(password) >= 7
     
