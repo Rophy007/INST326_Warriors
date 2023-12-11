@@ -239,10 +239,16 @@ class UserManager:
 
 
     def check_balance(self):
+        """
+        This function checks the balance of the logged-in user.
+        """
         balance = self.user_accounts[self.logged_in_user]["balance"]
         print(f"Current Balance: {balance}")
 
     def update_csv(self):
+        """
+
+        
         with open(self.user_data_file, 'r') as file:
             reader = csv.DictReader(file)
 
