@@ -460,7 +460,7 @@ class TransactionModule:
         self.online_banking_system = online_banking_system
         self.username = username
 
-def run_transaction_module(self):
+    def run_transaction_module(self):
         """
         Initiates a transaction module for the user.
 
@@ -503,112 +503,6 @@ def run_transaction_module(self):
             print(f"Transaction Error: {e}")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class OnlineBankingSystem:
     def __init__(self):
         self.user_accounts = {}
@@ -638,75 +532,42 @@ class OnlineBankingSystem:
         except FileNotFoundError:
             pass
 
+    def save_user_data(self):
+        user_data = {}
+        for username, user in self.user_accounts.items():
+            user_data[username] = {
+                'firstname': user.first_name,
+                'lastname': user.last_name,
+                'email': user.email,
+                'account_type': user.account_type,
+                'balance': user.balance,
+                'transaction_history': user.transaction_history.to_dict(orient='records')
+            }
+        with open('user_data.json', 'w') as file:
+            json.dump(user_data, file, indent=2)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def validate_password(self, password):
-    """Validates length of password.
-    Args:
-        password (str): user's password, which needs to be validated.
-
-    Returns:
-        bool: True if password length is greater than or equal to 7, False otherwise. 
+    def validate_password(self, password):
+     """Validates a password based on length and composition. 
+        Password must be at least 7 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.
         
-    Claim: Reem
-    """
-    # print(f"Validating password for user with length {len(password)}")
-    return len(password) >= 7
+        Args:
+            password (str): the user's password, which needs to be validated.
+            
+        Returns:
+            boolean: True if password is valid, False if invalid. 
+            
+        Claim: Reem
+        
+        Technique: Regular Expression          
+    
+        """       
+        if re.match(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$', password):
+            return True
+        else:
+            return False
+    
 
-
-def __str__(self):
+    def __str__(self):
 """
 Claim: Rophy 
 This provides a string representation of an object. It checks if the balance attribute of t he UserACcount if greaters than 1000.
