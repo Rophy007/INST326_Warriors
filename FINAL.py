@@ -280,24 +280,6 @@ class UserManager:
             writer.writerows(rows)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class UserAccount:
     def __init__(self, username, firstname, lastname, email, account_type='Savings', initial_balance=0):
             """
@@ -451,9 +433,6 @@ def check_balance(self):
             plt.show()
 
 
-
-
-
 def validate_password(self, password):
     """Validates a password based on length and composition. 
         Password must be at least 7 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.
@@ -475,6 +454,11 @@ def validate_password(self, password):
         else:
             return False
 
+
+class TransactionModule:
+    def __init__(self, online_banking_system, username):
+        self.online_banking_system = online_banking_system
+        self.username = username
 
 def run_transaction_module(self):
         """
