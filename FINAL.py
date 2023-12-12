@@ -212,32 +212,72 @@ class UserManager:
 
 
 
+    def show_account_options(self):
+        """Displays menu of account options in a loop and performs corresponding actions based on user input.
 
+        Side effects:
+            Function prompts user for input repeatedly. 
+            Depending on user's input, it may perform actions such as depositing, withdrawing, checking balance, or logging out.
+            If user chooses to log out (option 4), function sets logged_in_user attribute to None, effectively logging the user out.
+            Prints messages to the console. 
+        """
+        while True:
+            print("\nAccount Options:")
+            print("1. Deposit")
+            print("2. Withdraw")
+            print("3. Check Balance")
+            print("4. Log out")
 
+            choice = input("Enter your choice: ")
 
+            if choice == '1':
+                self.deposit(float(input("Enter the deposit amount: ")))
+            elif choice == '2':
+                self.withdraw(float(input("Enter the withdrawal amount: ")))
+            elif choice == '3':
+                self.check_balance()
+            elif choice == '4':
+                print("Logging out...")
+                self.logged_in_user = None
+                break
+            else:
+                print("Invalid choice. Please enter 1, 2, 3, or 4.")
 
+    def deposit(self, amount):
+        """Deposits a specified amount into user's account. 
+        
+        Args: 
+            amount (float): the amount to be deposited. 
+            
+        Side effects:
+            Increases the balance in the user's account with the specific amount.
+            Updates user's account information to CSV file.    
+        
+        Claim: Reem         
+    
+        """
+        self.user_accounts[self.logged_in_user]["balance"] += amount
+        self.update_csv()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def withdraw(self, amount):
+          """Withdraws a specified amount from user's account.
+        
+        Args:
+            amount (float): amount to be withdrawn 
+            
+        Side effects:
+            Decreases the balance in the user's account by the specific amount.
+            Updates user's account information in the CSV file.
+            If the user has insufficient funds, a message is printed to the console. 
+        
+        Claim: Reem
+        """
+        if self.user_accounts[self.logged_in_user]["balance"] >= amount:
+            self.user_accounts[self.logged_in_user]["balance"] -= amount
+            self.update_csv()
+        else:
+            print("Insufficient funds.")
+            
     def check_balance(self):
         """
         This function checks the balance of the logged-in user.
@@ -336,23 +376,64 @@ class UserAccount:
         })
 
 
+    def deposit(self, amount):
+        """
+        Checks balance based on deposit amount.
+        
+        Args:
+            amount (float): Amount of money deposited in account.
+        
+        Raises:
+            TransactionError: If deposit amount is less than $0. 
+            
+        Side effects:
+            Account's balance (self.balance) is increased based on deposit amount.
+            A new transaction of type 'Deposit' with the specified amount is added to the transaction history. 
+            A message is printed to the console, which indicates the success of the deposit, and includes deposited amount and new balance. 
+            If the updated balance is greater than $1000, an additional message is printed, which says "Oh, you got money!"          
+            
+                
+        Claim: Reem
+        Technique: f-strings containing expressions
+            
+        """
+        if amount <= 0:
+            raise TransactionError("Invalid deposit amount. Amount must be greater than 0.")
+        self.balance += amount
+        self.add_transaction(transaction_type='Deposit', amount=amount)
+        print(f"Deposit of ${amount} successful. New balance: ${self.balance}")
+
+        if self.balance > 1000:
+            print("Oh, you got money!")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def withdraw(self, amount):
+         """
+        Checks balance based on withdrawal amount.
+        
+        Args:
+            amount (float): Amount of money withdrawn from account.
+            
+        Raises: 
+            TransactionError: If withdrawal amount is less than $0.
+            
+        Side effects:
+            If account balance is greater than or equal to the withdrawal amount, the system will proceed with the withdrawal. 
+            If not, then the system will print a message stating that there are insufficient funds. 
+            If there are sufficient funds, the withdrawal amount is deducted from the account's balance (self.balance).
+            A new transaction type "Withdrawal" with the specific amount is added to the transaction history. 
+            If the withdrawal is successful, a message is printed to the console indicating success of the withdrawal, including the amount, and new account balance.
+        
+        Claim: Reem
+        """
+        if amount <= 0:
+            raise TransactionError("Invalid withdrawal amount. Amount must be greater than 0.")
+        if self.balance >= amount:
+            self.balance -= amount
+            self.add_transaction(transaction_type='Withdrawal', amount=amount)
+            print(f"Withdrawal of ${amount} successful. New balance: ${self.balance}")
+        else:
+            print("Insufficient funds for withdrawal.")
 
 
 def check_balance(self):
@@ -399,7 +480,26 @@ def check_balance(self):
 
 
 
-
+def validate_password(self, password):
+    """Validates a password based on length and composition. 
+        Password must be at least 7 characters long and contain at least one uppercase letter, one lowercase letter, and one digit.
+        
+        Args:
+            password (str): the user's password, which needs to be validated.
+            
+        Returns:
+            boolean: True if password is valid, False if invalid. 
+            
+        Claim: Reem
+        
+        Technique: Regular Expression          
+    
+        """
+        # Use regex to validate password
+        if re.match(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$', password):
+            return True
+        else:
+            return False
 
 
 def run_transaction_module(self):
@@ -634,18 +734,18 @@ class OnlineBankingSystem:
 
 
 
+def validate_password(self, password):
+    """Validates length of password.
+    Args:
+        password (str): user's password, which needs to be validated.
 
-
-
-
-
-
-
-
-
-
-
-
+    Returns:
+        bool: True if password length is greater than or equal to 7, False otherwise. 
+        
+    Claim: Reem
+    """
+    # print(f"Validating password for user with length {len(password)}")
+    return len(password) >= 7
 
 
 def __str__(self):
