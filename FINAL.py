@@ -581,7 +581,7 @@ Returns: (str)
         return f"UserAccount(username={self.username}, account_number={self.account_number}, " \
                f"first_name={self.first_name}, last_name={self.last_name}, " \
                f"email={self.email}, account_type={self.account_type}, balance={self.balance}) {balance_message}"
-    
+
     def create_bank_account(self):
 
 """
