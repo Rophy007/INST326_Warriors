@@ -127,32 +127,6 @@ class UserManager:
         return False
 
 
-  def authenticate_user(self, username, password):
-        """
-        Claim: Abrar
-        Technique: With statement. Conditional expression
-        
-        Authenticates the user by comparing provided info with the stored info
-
-        Parameters:
-        
-            username (str): The username entered by the user.
-            password (str): The password entered by the user.
-
-        Returns:
-
-            bool: True if authentication is good, false otherwise
-        
-        """
-        with open(self.user_data_file, 'r') as file:
-            reader = csv.DictReader(file)
-
-            for row in reader:
-                if row['username'] == username and self.verify_password(password, row['hashed_password']):
-                    return True
-
-        return False
-
     def hash_password(self, password):
         """
         Claim: Abrar
